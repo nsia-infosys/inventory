@@ -1,0 +1,26 @@
+# Laravel Quickstart
+- download the Laravel framework
+composer create-project laravel/laravel inventory
+- create .env file
+- Generate key
+php artisan key:generate
+- create login and registration controller and views
+php artisan make:auth
+- create database 
+dbname: inventory 
+collation: utf8mb4_general_ci
+- create mysql user
+username=homestead
+password=secret
+- Edit AppServiceProvider.php file and inside the boot method set a default string length
+use Illuminate\Support\Facades\Schema;
+public function boot()
+{
+    Schema::defaultStringLength(191);
+}
+- Deploy migration files
+php artisan migrate
+- Create Model "item" with migration file
+php artisan make:model --migration Item
+- Create controller of ItemController
+php artisan make:controller BookController --resource
