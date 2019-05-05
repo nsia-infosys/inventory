@@ -9,8 +9,8 @@
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>IMEI</th>
                         <th>Serial No</th>
+                        <th>IMEI</th>
                         <th width="250px;">Action</th>
                     </tr>
                 </thead>
@@ -18,8 +18,8 @@
                     @foreach($items as $record)
                     <tr id="item_id_{{ $record->id }}">
                         <td>{{ $record->id  }}</td>
-                        <td>{{ $record->imei }}</td>
                         <td>{{ $record->sn }}</td>
+                        <td>{{ $record->imei }}</td>
                         <td>
                             <!-- <a href="/items/{{ $record->id }}/pages" id="view-item" title="Open Item" data-id="{{ $record->id }}" class="btn btn-light"><span class="oi oi-book"></span></a> -->
                             <a href="javascript:void(0)" id="view-item" title="View Item" onclick="viewRecord({{ $record->id }})" data-id="{{ $record->id }}" class="btn btn-light text-info"><span class="oi oi-eye"></span></a>
@@ -55,6 +55,7 @@
         $(modalEl).modal('show');
         $(modalEl).modal();
         $(".unsaved-list", modalEl).empty();
+        clearTempList();
         $('input[name="item_imei"]', modalEl).val("").trigger('focus');
     }
 
