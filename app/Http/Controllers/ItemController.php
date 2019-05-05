@@ -49,18 +49,15 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $imei_s = $request->input('imei_s');
+        $imei = $request->input('imei');
+        $sn = $request->input('sn');
 
         $items = [];
-        foreach ($imei_s as $index => $imei) {
-            if($imei) {
-                $item['imei'] = $imei;
-                array_push($items, $item);
-            }
-        }
         
-        if(count($items) > 0) {
-            Item::insert($items);
+        if(count($imei) > 0 && count($sn) > 0) {
+            $data = ['imei'=> $imei, 'sn'=> $sn];
+            // print_r($data);
+            Item::create($data);
         }
         
         return Response::json(['success' => true]);

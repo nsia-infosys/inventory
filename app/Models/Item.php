@@ -8,7 +8,7 @@ class Item extends Model
 {
     protected $table = 'items';
     // protected $fillable = ['imei', 'user_id'];
-    protected $fillable = ['imei'];
+    protected $fillable = ['imei', 'sn'];
 
     // public function user()
     // {

@@ -10,6 +10,7 @@
                     <tr>
                         <th>Id</th>
                         <th>IMEI</th>
+                        <th>Serial No</th>
                         <th width="250px;">Action</th>
                     </tr>
                 </thead>
@@ -18,6 +19,7 @@
                     <tr id="item_id_{{ $record->id }}">
                         <td>{{ $record->id  }}</td>
                         <td>{{ $record->imei }}</td>
+                        <td>{{ $record->sn }}</td>
                         <td>
                             <!-- <a href="/items/{{ $record->id }}/pages" id="view-item" title="Open Item" data-id="{{ $record->id }}" class="btn btn-light"><span class="oi oi-book"></span></a> -->
                             <a href="javascript:void(0)" id="view-item" title="View Item" onclick="viewRecord({{ $record->id }})" data-id="{{ $record->id }}" class="btn btn-light text-info"><span class="oi oi-eye"></span></a>
@@ -56,22 +58,28 @@
         $('input[name="item_imei"]', modalEl).val("").trigger('focus');
     }
 
-    function addItems(modalEl, imei_s) {
-        $(".save-list-btn", modalEl).prop('disabled', true);
-        $(".spinner-border", modalEl).show();
+    function addItem(modalEl, imei, sn) {
+        // $(".save-list-btn", modalEl).prop('disabled', true);
+        $("input[name='item_imei']", modalEl).prop('disabled', true);
+        // $(".spinner-border", modalEl).show();
         $.ajax({
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            data: {imei_s: imei_s},
+            data: {imei: imei, sn: sn},
             url : "{!! url('/items'); !!}" ,
             type: "POST",
             dataType: 'json',
         }).done(function (data) {
             console.log(data);
-            refershPage();
+            clearTempList();
+            $("input[name='item_imei']", modalEl).prop('disabled', false);
+            $(".message", modalEl).text("Successfully Saved").fadeIn("slow").fadeOut("slow");
+            // refershPage();
         }).fail(function () {
-            $(".spinner-border", modalEl).hide();
-            $(".save-list-btn", modalEl).prop('disabled', false);
-            alert('Data could not be save.');
+            $(".message", modalEl).text("Duplicate Found (EMEI/SN).").fadeIn().fadeOut("slow");
+            $("input[name='item_imei']", modalEl).prop('disabled', false);
+            // $(".spinner-border", modalEl).hide();
+            // $(".save-list-btn", modalEl).prop('disabled', false);
+            // alert('Data could not be save.');
         });
     }
 
