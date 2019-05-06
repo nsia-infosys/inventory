@@ -40,7 +40,7 @@
 <script>
     $(document).ready(function () {
         $('#create-item-modal').on('shown.bs.modal', function() {
-            $('input[name="item_imei"]').trigger('focus');
+            $('input[name="item_label"]').trigger('focus');
         });
     });
 
@@ -56,12 +56,12 @@
         $(modalEl).modal();
         $(".unsaved-list", modalEl).empty();
         clearTempList();
-        $('input[name="item_imei"]', modalEl).val("").trigger('focus');
+        $('input[name="item_label"]', modalEl).val("").trigger('focus');
     }
 
     function addItem(modalEl, imei, sn) {
         // $(".save-list-btn", modalEl).prop('disabled', true);
-        $("input[name='item_imei']", modalEl).prop('disabled', true);
+        $("input[name='item_label']", modalEl).prop('disabled', true);
         // $(".spinner-border", modalEl).show();
         $.ajax({
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -72,12 +72,12 @@
         }).done(function (data) {
             console.log(data);
             clearTempList();
-            $("input[name='item_imei']", modalEl).prop('disabled', false);
             $(".message", modalEl).text("Successfully Saved").fadeIn("slow").fadeOut("slow");
+            $("input[name='item_label']", modalEl).prop('disabled', false).trigger('focus');
             // refershPage();
         }).fail(function () {
             $(".message", modalEl).text("Duplicate Found (EMEI/SN).").fadeIn().fadeOut("slow");
-            $("input[name='item_imei']", modalEl).prop('disabled', false);
+            $("input[name='item_label']", modalEl).prop('disabled', false).trigger('focus');
             // $(".spinner-border", modalEl).hide();
             // $(".save-list-btn", modalEl).prop('disabled', false);
             // alert('Data could not be save.');

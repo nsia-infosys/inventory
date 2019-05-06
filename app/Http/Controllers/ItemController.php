@@ -54,7 +54,7 @@ class ItemController extends Controller
 
         $items = [];
         
-        if(count($imei) > 0 && count($sn) > 0) {
+        if(sizeof($imei) > 0 && sizeof($sn) > 0) {
             $data = ['imei'=> $imei, 'sn'=> $sn];
             // print_r($data);
             Item::create($data);

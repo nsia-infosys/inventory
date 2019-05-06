@@ -8,7 +8,7 @@
         <div class="modal-body">
             <div class="form-group">
                 <label class="control-label" for="title">IMEI/SN</label>
-                <input type="text" name="item_imei" class="form-control" data-error="Please enter item IMEI." required />
+                <input type="text" name="item_label" class="form-control" data-error="Please enter item IMEI." required />
                 <div class="error"></div>
             </div>
             <ul class="temp-list list-group" style="margin-bottom: 10px;">
@@ -34,7 +34,7 @@
 //     })
 // });
 
-$("input[name='item_imei']").on('keyup', function (e) {
+$("input[name='item_label']").on('keyup', function (e) {
     
     if (e.keyCode == 13) {
         var validation = isValidInput(e.currentTarget.value);
